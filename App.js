@@ -2,6 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import React, { useState, useEffect } from "react";
 import { auth } from "./config"; // Updated import
+import { TouchableOpacity, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Login from "./src/Login";
 import SignUp from "./src/SignUp";
@@ -12,6 +14,14 @@ import SummaryScreen from "./src/SummaryScreen"; // Replace with the actual path
 
 
 const Stack = createStackNavigator();
+
+
+const ProfileIcon = ({ navigation }) => (
+  <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={{ marginRight: 10 }}>
+    <Ionicons name="person-circle" size={50 } color="grey" />
+  </TouchableOpacity>
+);
+
 
 function App() {
   const [initializing, setInitializing] = useState(true);
@@ -38,10 +48,10 @@ function App() {
           options={{
             headerTitle: () => <Header name="Login " />,
             headerStyle: {
-              height: 150,
-              borderBottomLeftRadius: 50,
-              borderBottomRightRadius: 50,
-              backgroundColor: "#00e4d0",
+              height: 80,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              backgroundColor: "#00e4d1",
               shadowColor: "#000",
               elevation: 25,
             },
@@ -53,10 +63,10 @@ function App() {
           options={{
             headerTitle: () => <Header name="SignUp " />,
             headerStyle: {
-              height: 150,
-              borderBottomLeftRadius: 50,
-              borderBottomRightRadius: 50,
-              backgroundColor: "#00e4d0",
+              height: 80,
+              borderBottomLeftRadius: 10,
+              borderBottomRightRadius: 10,
+              backgroundColor: "#00e4d1",
               shadowColor: "#000",
               elevation: 25,
             },
@@ -72,15 +82,16 @@ function App() {
         name="TxtFilePicker"
         component={TxtFilePicker} // Start with "TxtFilePicker" as the home screen
         options={({ navigation }) => ({
-        headerTitle: () => <Header name="Home" />,
+        headerTitle: () => <Header name="Legal Buddy" />,
           headerStyle: {
-            height: 150,
-            borderBottomLeftRadius: 50,
-            borderBottomRightRadius: 50,
-            backgroundColor: "#00e4d0",
+            height: 80,
+            borderBottomLeftRadius: 10,
+            borderBottomRightRadius: 10,
+            backgroundColor: "#00e4d1",
             shadowColor: "#000",
             elevation: 25,
           },
+          headerRight: () => <ProfileIcon navigation={navigation} />,
         })}
       />
       <Stack.Screen
@@ -89,10 +100,10 @@ function App() {
         options={{
           headerTitle: () => <Header name="Profile" />,
           headerStyle: {
-            height: 150,
-            borderBottomLeftRadius: 50,
-            borderBottomRightRadius: 50,
-            backgroundColor: "#00e4d0",
+            height: 80,
+            borderBottomLeftRadius: 10,
+            borderBottomRightRadius: 10,
+            backgroundColor: "#00e4d1",
             shadowColor: "#000",
             elevation: 25,
           },
@@ -104,13 +115,13 @@ function App() {
         options={({ route }) => ({
         headerTitle: () => <Header name="Summary" />, // Customize the header as needed
         headerStyle: {
-            height: 150,
-            borderBottomLeftRadius: 50,
-            borderBottomRightRadius: 50,
-            backgroundColor: "#00e4d0",
-            shadowColor: "#000",
-            elevation: 25,
-          },
+          height: 80,
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
+          backgroundColor: "#00e4d1",
+          shadowColor: "#000",
+          elevation: 25,
+        },
         // Other options if necessary
         })}
         />   

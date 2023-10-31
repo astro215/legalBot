@@ -1,16 +1,24 @@
 {
   "expo": {
-    "name": "legalBot",
+    "name": "LegalBot",
     "slug": "legalBot",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/legal.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ]
+    ] ,
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -19,12 +27,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/legal.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.astro21.legalBot"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4d5450ef-c4db-47ed-9bf7-60958d8fba73"
+      }
     }
   }
 }

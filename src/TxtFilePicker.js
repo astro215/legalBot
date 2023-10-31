@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, SafeAreaView,TouchableOpacity,TextInput, StyleSheet, ScrollView } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import Modal from 'react-native-modal';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function TxtFilePicker() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileContent, setFileContent] = useState(null);
   const [showContent, setShowContent] = useState(false);
+  const [inputText, setInputText] = useState(''); // State for text input
+
 
   const navigation = useNavigation();
 
   const summarizeText = async () => {
     try {
+      if (inputText.length != 0 ) {
+        console.log(inputText.length)
+        setFileContent(inputText);
+      }
       if (fileContent) {
         console.log("hi");
+        console.log(fileContent);
         const apiUrl = "https://astro21-bart-cls.hf.space/predict";
         
         const response = await axios.post(apiUrl, {}, { params: { text: fileContent } });
@@ -35,6 +41,7 @@ export default function TxtFilePicker() {
     } catch (error) {
       console.error('Error summarizing text:', error);
     }
+  
   }
 
   const pickDocument = async () => {
@@ -78,28 +85,43 @@ export default function TxtFilePicker() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Ionicons name="person-circle" size={30} color="black" />
-          <Text>Profile</Text>
+        <TextInput
+          style={styles.textInput}
+          editable
+          multiline={true}
+          numberOfLines={25 }
+          maxLength={40}
+          placeholder="Enter text here                                                       "
+          value={inputText}
+          onChangeText={(text) => {
+            setInputText(text);
+          }}
+        />
+
+        <Text style={{ fontSize: 16, fontWeight: 'bold'}}>OR</Text>
+
+        
+        
+        <TouchableOpacity style={styles.pbutton} onPress={pickDocument}>
+          <Text style={styles.buttonText}>Pick a .txt file</Text>
         </TouchableOpacity>
+
         {selectedFile ? (
           <View>
-            <Text style={styles.fileName}>Selected File: {selectedFile.assets[0].name}</Text>
+            <Text style={styles.fileName}> {selectedFile.assets[0].name}</Text>
             <TouchableOpacity
               style={styles.smallButton}
               onPress={() => {
                 setShowContent(!showContent);
               }}
             >
-              <Text>View</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={summarizeText}>
-              <Text style={styles.buttonText}>Summarize</Text>
+              <Text style = {styles.ssname}>View</Text>
             </TouchableOpacity>
           </View>
         ) : null}
-        <TouchableOpacity style={styles.button} onPress={pickDocument}>
-          <Text style={styles.buttonText}>Pick a .txt file</Text>
+        
+        <TouchableOpacity style={styles.button} onPress={summarizeText}>
+          <Text style={[ styles.sbuttonText]}>Summarize</Text>
         </TouchableOpacity>
       </View>
       <Modal isVisible={showContent}>
@@ -111,7 +133,7 @@ export default function TxtFilePicker() {
             style={styles.closeButton}
             onPress={() => setShowContent(false)}
           >
-            <Text>Close</Text>
+            <Text style = {styles.ssname}>Close</Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -125,28 +147,47 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    width: '100%',
+    width: '50',  
     backgroundColor: '#e0e0e0',
   },
   headerContainer: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   smallButton: {
     width: 100,
     alignItems: 'center',
-    backgroundColor: 'green',
+    backgroundColor: '#6FCB9F',
     padding: 10,
     borderRadius: 5,
   },
   button: {
-    backgroundColor: 'blue',
+    width: 150,
+    backgroundColor: '#FF5733',
+    alignItems: 'center',
     padding: 10,
     borderRadius: 5,
-    margin: 10,
+    margin: 15,
+  },
+  pbutton: {
+    backgroundColor: '#FF5733',
+    padding: 10,
+    borderRadius: 5,
+    margin: 15,
   },
   buttonText: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  ssname: {
+    fontSize: 14,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  sbuttonText: {
+    fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
   },
@@ -169,4 +210,25 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
   },
+  textInput: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'black',
+    textAlignVertical: 'top',
+    padding: 10,
+    marginBottom: 40,
+    marginTop: 10,
+  },
+  // textInput: {
+  //   width: '90%',
+  //   height: '60%',
+  //   borderRadius: 10,
+  //   borderColor: '#3a86ff',
+  //   borderWidth: 1,
+    
+  //   backgroundColor: 'white',
+  //   padding: 20,
+  //   shadowColor: '#3a86ff'
+  // },
 });

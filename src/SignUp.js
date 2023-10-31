@@ -1,123 +1,193 @@
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { auth, db } from '../config'; // Import the updated Firebase config
-import { createUserWithEmailAndPassword , sendEmailVerification } from 'firebase/auth';
-import { collection, doc, setDoc } from "firebase/firestore"; 
+import {
+  View,
+  Text,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  Platform,
+  Keyboard,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import { auth, db } from '../config';
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const SignUp = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setfullName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [phone, setPhone] = useState('');
 
-    const signUpUser = async (email, password, firstName, lastName, phone) => {
-        try {
-            // Create a user with email and password
-            const userCredential = await createUserWithEmailAndPassword(auth,email, password);
-            
-            // Send email verification
-            await sendEmailVerification( auth.currentUser,{
-                handleCodeInApp: true,
-                url: 'https://nlplegalbot.firebaseapp.com',
-            });
+  const signUpUser = async (email, password, fullName, phone) => {
 
-            // Save user information to Firestore
-            const userRef =  collection(db , 'users')
-            
-            await setDoc(doc(userRef, userCredential.user.uid), {
-                firstName,
-                lastName,
-                phone,
-                email,
-            });
+    if (!email || !password || !fullName || !phone) {
+        alert('Please fill in all required fields');
+        return;
+      }
+      
+    try {
+      // Create a user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
-            alert('Registration successful. Email verification sent.');
-        } catch (error) {
-            alert(error.message);
-            console.error(error);
-        }
-    };
+      // Send email verification
+      await sendEmailVerification(auth.currentUser, {
+        handleCodeInApp: true,
+        url: 'https://nlplegalbot.firebaseapp.com',
+      });
 
-    return (
-        <View style={styles.container}>
-            <Text style={{ fontWeight: 'bold', fontSize: 23 }}>
-                Sign Up
-            </Text>
-            <View style={{ marginTop: 40 }}>
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="First Name"
-                    onChangeText={(firstName) => setFirstName(firstName)}
-                    autoCapitalize='none'
-                    autoCorrect={false}
+      // Save user information to Firestore
+      const userRef = collection(db, 'users');
+
+      await setDoc(doc(userRef, userCredential.user.uid), {
+        fullName,
+        phone,
+        email,
+      });
+
+      alert('Registration successful. Email verification sent.');
+    } catch (error) {
+      alert(error.message);
+      console.error(error);
+    }
+  };
+
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled" // Ensure that taps outside of text inputs dismiss the keyboard
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={styles.inner}>
+            <Text style={{ fontSize: 40, fontWeight: 'bold'}}>SignUp</Text>
+            <View style={{ marginTop: 10 }}>
+              <View style={styles.inputContainer}>
+                <Ionicons
+                  name="person-outline"
+                  size={30}
+                  color="#666"
+                  style={styles.icon}
                 />
                 <TextInput
-                    style={styles.textInput}
-                    placeholder="Last Name"
-                    onChangeText={(lastName) => setLastName(lastName)}
-                    autoCapitalize='none'
-                    autoCorrect={false}
+                  style={styles.textInput}
+                  placeholder="Full Name"
+                  onChangeText={(fullName) => setfullName(fullName)}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                />
+              </View>
+              <View style={styles.inputContainer}>  
+                <MaterialIcons
+                  name="alternate-email"
+                  size={30}
+                  color="#666"
+                  style={styles.icon}
                 />
                 <TextInput
-                    style={styles.textInput}
-                    placeholder="Phone"
-                    onChangeText={(phone) => setPhone(phone)}
-                    autoCapitalize='none'
-                    autoCorrect={false}
+                  style={styles.textInput}
+                  placeholder="Email"
+                  onChangeText={(email) => setEmail(email)}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  keyboardType="email-address"
                 />
+              </View>
+              <View style={styles.inputContainer}>
+              <MaterialIcons
+                  name="phone"
+                  size={30}
+                  color="#666"
+                  style={styles.icon}
+                />
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="Phone"
+                  onChangeText={(phone) => setPhone(phone)}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Ionicons
+                  name="ios-lock-closed-outline"
+                  size={30}
+                  color="#666"
+                  style={styles.icon}
+              />
+
                 <TextInput
-                    style={styles.textInput}
-                    placeholder="Email"
-                    onChangeText={(email) => setEmail(email)}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    keyboardType='email-address'
+                  style={styles.textInput}
+                  placeholder="Password"
+                  onChangeText={(password) => setPassword(password)}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  secureTextEntry={true}
                 />
-                <TextInput
-                    style={styles.textInput}
-                    placeholder="Password"
-                    onChangeText={(password) => setPassword(password)}
-                    autoCapitalize='none'
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                />
+              </View>
             </View>
-            <TouchableOpacity
-                onPress={() => signUpUser(email, password, firstName, lastName, phone)}
-                style={styles.button}
-            >
-                <Text style={{ fontWeight: 'bold', fontSize: 26 }}>Sign Up</Text>
+
+            <TouchableOpacity onPress={() => signUpUser(email, password, fullName , phone)} style={styles.button}>
+              <Text style={{ fontWeight: 'bold', fontSize: 26 }}>Sign Up</Text>
             </TouchableOpacity>
-        </View>
-    );
+          </View>
+        </TouchableWithoutFeedback>
+      </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 export default SignUp;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        marginTop: 100,
-    },
-    textInput: {
-        paddingTop: 20,
-        paddingBottom: 10,
-        width: 400,
-        fontSize: 20,
-        borderBottomWidth: 1,
-        borderBottomColor: "#000",
-        marginBottom: 10,
-        textAlign: "center",
-    },
-    button: {
-        marginTop: 50,
-        height: 70,
-        width: 250,
-        backgroundColor: "#026efd",
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 50,
-    }
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  inner: {
+    padding: 20,
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  textInput: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    width: 360,
+    fontSize: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#000',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  button: {
+    marginTop: 50,
+    height: 50,
+    width: 250,
+    backgroundColor: '#026efd',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+  },
+  inputContainer: {
+    justifyContent: 'center',
+  },
+  icon: {
+    position: 'absolute',
+    left: 10,
+    marginRight: 5
+  }
 });
