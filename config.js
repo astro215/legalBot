@@ -7,13 +7,13 @@ import { getStorage } from "firebase/storage";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCXjsYzhIPmZ4F8xDQM95ToWaoKOVFS11g",
-  authDomain: "nlplegalbot.firebaseapp.com",
-  databaseURL: "https://nlplegalbot-default-rtdb.firebaseio.com",
-  projectId: "nlplegalbot",
-  storageBucket: "nlplegalbot.appspot.com",
-  messagingSenderId: "551040834771",
-  appId: "1:551040834771:web:5e7955bfb2ab25f4094826"
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  projectId: "",
+  storageBucket: "",
+  messagingSenderId: "",
+  appId: ""
 };
 
 
