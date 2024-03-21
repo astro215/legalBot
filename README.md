@@ -11,12 +11,12 @@ Welcome to the Legal Bot App repository! This repository contains the source cod
 - **Profile Management**: Manage user profiles and preferences within the app.
 
 ## Screenshots
-![Home Screen](screenshots/home_screen.png)
-![File Viewer Screen](screenshots/file_viewer_screen.png)
-![Summary Screen](screenshots/summary_screen.png)
-![Login Screen](screenshots/login_screen.png)
-![Profile Screen](screenshots/profile_screen.png)
-![Signup Screen](screenshots/signup_screen.png)
+![Home Screen](screenshots/home_screen.jpg)
+![File Viewer Screen](screenshots/file_viewer_screen.jpg)
+![Summary Screen](screenshots/summary_screen.jpg)
+![Login Screen](screenshots/login_screen.jpg)
+![Profile Screen](screenshots/profile_screen.jpg)
+![Signup Screen](screenshots/signup_screen.jpg)
 
 ## Demo Video
 
