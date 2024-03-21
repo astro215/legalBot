@@ -12,12 +12,17 @@ Welcome to the Legal Bot App repository! This repository contains the source cod
 
 
 
-<img src="screenshots/home_screen.jpg" alt="Home Screen" style="width:25%;">
-<img src="screenshots/file_viewer_screen.jpg" alt="File Viewer Screen" style="width:25%;">
-<img src="screenshots/summary_screen.jpg" alt="Summary Screen" style="width:25%;">
-<img src="screenshots/login_screen.jpg" alt="Login Screen" style="width:25%;">
-<img src="screenshots/profile_screen.jpg" alt="Profile Screen" style="width:25%;">
-<img src="screenshots/signup_screen.jpg" alt="Signup Screen" style="width:25%;">
+Sure, here are the updated screenshots displayed side by side using HTML:
+
+## Screenshots
+<div style="display: flex; flex-wrap: wrap;">
+  <img src="screenshots/home_screen.jpg" alt="Home Screen" style="width:50%; margin: 5px;">
+  <img src="screenshots/file_viewer_screen.jpg" alt="File Viewer Screen" style="width:50%; margin: 5px;">
+  <img src="screenshots/summary_screen.jpg" alt="Summary Screen" style="width:50%; margin: 5px;">
+  <img src="screenshots/login_screen.jpg" alt="Login Screen" style="width:50%; margin: 5px;">
+  <img src="screenshots/profile_screen.jpg" alt="Profile Screen" style="width:50%; margin: 5px;">
+  <img src="screenshots/signup_screen.jpg" alt="Signup Screen" style="width:50%; margin: 5px;">
+</div>
 
 ## Demo Video
 
