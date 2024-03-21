@@ -10,13 +10,14 @@ Welcome to the Legal Bot App repository! This repository contains the source cod
 - **User Authentication**: Secure login and signup functionality for user accounts.
 - **Profile Management**: Manage user profiles and preferences within the app.
 
-## Screenshots
-![Home Screen](screenshots/home_screen.jpg)
-![File Viewer Screen](screenshots/file_viewer_screen.jpg)
-![Summary Screen](screenshots/summary_screen.jpg)
-![Login Screen](screenshots/login_screen.jpg)
-![Profile Screen](screenshots/profile_screen.jpg)
-![Signup Screen](screenshots/signup_screen.jpg)
+
+
+<img src="screenshots/home_screen.jpg" alt="Home Screen" style="width:50%;">
+<img src="screenshots/file_viewer_screen.jpg" alt="File Viewer Screen" style="width:50%;">
+<img src="screenshots/summary_screen.jpg" alt="Summary Screen" style="width:50%;">
+<img src="screenshots/login_screen.jpg" alt="Login Screen" style="width:50%;">
+<img src="screenshots/profile_screen.jpg" alt="Profile Screen" style="width:50%;">
+<img src="screenshots/signup_screen.jpg" alt="Signup Screen" style="width:50%;">
 
 ## Demo Video
 
