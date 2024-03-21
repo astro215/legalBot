@@ -12,7 +12,9 @@ Welcome to the Legal Bot App repository! This repository contains the source cod
 
 
 
-Sure, here are the updated screenshots displayed side by side using HTML:
+## Demo Video
+https://github.com/astro215/legalBot/assets/111174198/2316a402-40c5-48bb-9a3b-9fc166561792
+
 
 ## Screenshots
 <div style="display: flex; flex-wrap: wrap;">
@@ -23,7 +25,7 @@ Sure, here are the updated screenshots displayed side by side using HTML:
   <img src="screenshots/signup_screen.jpg" alt="Signup Screen" style="width:25%; margin: 5px;">
 </div>
 
-## Demo Video
+
 
 
 ## Installation
